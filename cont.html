@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .contact-container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 15px;
+            font-size: 16px;
+            border-radius: 4px;
+        }
+        input[type="submit"]:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+<body>
+    <div class="contact-container">
+        <h1>Contact Us</h1>
+        <form id="contact-form">
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br><br>
+            
+            <label for="message">Message:</label><br>
+            <textarea id="message" name="message" rows="5" required></textarea><br><br>
+            
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            var email = document.getElementById('email').value;
+            var message = document.getElementById('message').value;
+
+            console.log("Email: ", email);
+            console.log("Message: ", message);
+
+            Email.send({
+                SecureToken: "f56909b4-ac9e-4cd7-9ba2-9b5aab5f770d",  // Replace with your secure token
+                To: 'angelpogi90@gmail.com',  // Replace with your email address
+                From: email,
+                Subject: "New Contact Us Message",
+                Body: "Email: " + email + "<br>Message: " + message
+            }).then(
+                response => {
+                    console.log("Email sent response: ", response);
+                    alert("Message sent successfully!");
+                }
+            ).catch(
+                error => {
+                    console.error("Failed to send message: ", error);
+                    alert("Failed to send message: " + error);
+                }
+            );
+        });
+    </script>
+</body>
+</html>
